@@ -20,22 +20,92 @@
     {
       "id": "p2",
       "status": "completed",
-      "title": "過去案件",
-      "period": 2023.1,
-      "summary": "概要...",
-      "details": "詳細...",
-      "duration": "6ヶ月",
-      "impressions": "感想..."
+      "title": "Webサイトの立ち上げ",
+      "period": 2026.0507,
+      "summary": "概要...活動内容をWebサイトで可視化",
+      "details": "詳細...Spredsheet → Apps Script → GitHub",
+      "duration": "1時間",
+      "impressions": "OK"
     },
     {
       "id": "p3",
-      "status": "completed",
-      "title": "過去案件",
-      "period": 2023.1,
-      "summary": "概要...",
+      "status": "active",
+      "title": "カイラル誘起スピン選択（CISS）効果の調査\n",
+      "period": "2026.0507 -",
+      "summary": "概要...カイラル誘起スピン選択（CISS）効果の調査",
       "details": "詳細...",
-      "duration": "6ヶ月",
+      "duration": "１カ月",
       "impressions": "感想..."
+    },
+    {
+      "id": "p4",
+      "status": "active",
+      "title": "散乱理論の化学反応への応用",
+      "period": "2026.0507 -",
+      "summary": "概要...散乱理論の化学反応への応用",
+      "details": "基礎、複素ポテンシャル、分岐",
+      "duration": "１カ月",
+      "impressions": "感想..."
+    },
+    {
+      "id": "p5",
+      "status": "active",
+      "title": "生体分子MD英語発表",
+      "period": "2026.0507 -",
+      "summary": "概要...生体分子MD英語発表",
+      "details": "スライド7割完成、英語の準備微妙",
+      "duration": "",
+      "impressions": ""
+    },
+    {
+      "id": "p6",
+      "status": "active",
+      "title": "化学反応討論会ポスター",
+      "period": "2026.0507 -",
+      "summary": "概要…ポスター",
+      "details": "5割。あとは定理と証明を追記。",
+      "duration": "",
+      "impressions": ""
+    },
+    {
+      "id": "p7",
+      "status": "active",
+      "title": "研究（Hi）",
+      "period": "",
+      "summary": "未公開",
+      "details": "",
+      "duration": "",
+      "impressions": ""
+    },
+    {
+      "id": "p8",
+      "status": "active",
+      "title": "研究（So）",
+      "period": "",
+      "summary": "未公開",
+      "details": "",
+      "duration": "",
+      "impressions": ""
+    },
+    {
+      "id": "p9",
+      "status": "active",
+      "title": "研究（Hi_P）",
+      "period": "",
+      "summary": "未公開",
+      "details": "",
+      "duration": "",
+      "impressions": ""
+    },
+    {
+      "id": "p10",
+      "status": "active",
+      "title": "モース理論",
+      "period": "2026.0507 -",
+      "summary": "概要…モース理論",
+      "details": "0508に自分が発表",
+      "duration": "",
+      "impressions": ""
     }
   ],
   "logs": [
