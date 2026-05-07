@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .page { display: none; }
+        .page.active { display: block; }
+        [data-lucide] { width: 1.2em; height: 1.2em; vertical-align: text-bottom; display: inline-block; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed">
+
+    <!-- ナビゲーション -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 cursor-pointer" onclick="showPage('main')">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">K</div>
+                <span class="font-bold text-lg">My Dashboard</span>
+            </div>
+            <div id="nav-links" class="flex gap-4 text-sm font-medium text-slate-500">
+                <button onclick="showPage('main')" class="hover:text-blue-600">Home</button>
+            </div>
+        </div>
+    </nav>
+
+    <main id="content" class="max-w-5xl mx-auto px-4 py-8">
+        <!-- 読み込み中表示 -->
+        <div id="loader" class="flex flex-col items-center justify-center py-20 text-slate-400">
+            <div class="animate-spin mb-4"><i data-lucide="loader-2"></i></div>
+            <p>スプレッドシートからデータを取得中...</p>
+        </div>
+
+        <!-- メインビュー -->
+        <div id="main-view" class="page space-y-12">
+            <!-- ナウいひとこと -->
+            <section class="bg-gradient-to-br from-blue-600 to-indigo-700 p-8 rounded-3xl text-white shadow-xl">
+                <h2 class="text-blue-200 text-sm font-bold mb-2 flex items-center gap-2">
+                    <i data-lucide="message-square"></i> ナウいひとこと
+                </h2>
+                <p id="now-word" class="text-2xl md:text-3xl font-medium">...</p>
+            </section>
+
+            <!-- 進行中プロジェクト -->
+            <section>
+                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-slate-900">
+                    <i data-lucide="zap" class="text-amber-500"></i> いま取り組んでいるプロジェクト
+                </h2>
+                <div id="active-projects" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+            </section>
+
+            <!-- 更新ログ -->
+            <section class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                <h2 class="text-xl font-bold mb-4 flex items-center gap-2 text-slate-900">
+                    <i data-lucide="history" class="text-slate-400"></i> サイトの更新ログ
+                </h2>
+                <div id="recent-logs" class="space-y-4"></div>
+            </section>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- 完了プロジェクト -->
+                <section>
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-900">
+                        <i data-lucide="check-circle" class="text-emerald-500"></i> 完了したプロジェクト
+                    </h2>
+                    <div id="completed-projects" class="space-y-4"></div>
+                </section>
+                <!-- 日記 -->
+                <section>
+                    <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-900">
+                        <i data-lucide="book" class="text-indigo-500"></i> 日記
+                    </h2>
+                    <div id="diary-list" class="space-y-4"></div>
+                </section>
+            </div>
+
+            <!-- Contact -->
+            <section class="pt-12 border-t">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2 text-slate-900">
+                    <i data-lucide="user"></i> Contact Me
+                </h2>
+                <div id="contacts" class="flex gap-4"></div>
+            </section>
+        </div>
+
+        <!-- 詳細ビュー -->
+        <div id="detail-view" class="page max-w-3xl mx-auto">
+            <button onclick="showPage('main')" class="flex items-center gap-2 text-slate-400 hover:text-blue-600 mb-8 transition-colors">
+                <i data-lucide="arrow-left"></i> メインに戻る
+            </button>
+            <div id="detail-content" class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100"></div>
+        </div>
+    </main>
+
+    <footer class="py-12 text-center text-slate-400 text-sm">
+        <p>&copy; 2024 Project Dashboard. Data synced from Google Sheets.</p>
+    </footer>
+
+    <script>
+        let siteData = null;
+
+        // データの取得
+        async function fetchData() {
+            try {
+                // あなたのdata.jsonのパス
+                const response = await fetch('./public/data.json');
+                if (!response.ok) throw new Error('Load failed');
+                siteData = await response.json();
+                renderSite();
+                document.getElementById('loader').style.display = 'none';
+                showPage('main');
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loader').innerHTML = '<p class="text-red-500">データの読み込みに失敗しました。GitHub Pagesのビルド完了を待つか、パスを確認してください。</p>';
+            }
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId + '-view').classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function renderSite() {
+            if (!siteData) return;
+
+            // ナウいひとこと
+            document.getElementById('now-word').innerText = siteData.profile?.nowWord || "こんにちは！";
+
+            // 進行中プロジェクト
+            const activeProjects = document.getElementById('active-projects');
+            activeProjects.innerHTML = siteData.projects.filter(p => p.status === 'active').map(p => `
+                <div onclick="showProjectDetail('${p.id}')" class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-blue-200 cursor-pointer transition-all group">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-bold group-hover:text-blue-600">${p.title}</h3>
+                        <i data-lucide="chevron-right" class="text-slate-300 group-hover:text-blue-400"></i>
+                    </div>
+                    <p class="text-xs font-bold text-blue-500 mb-2 uppercase tracking-wider">${p.period}</p>
+                    <p class="text-sm text-slate-500 line-clamp-2">${p.summary}</p>
+                </div>
+            `).join('');
+
+            // ログ
+            document.getElementById('recent-logs').innerHTML = siteData.logs.slice(0, 5).map(l => `
+                <div class="flex gap-4 text-sm border-b border-slate-50 pb-3">
+                    <span class="text-slate-400 font-mono shrink-0">${l.date}</span>
+                    <div>
+                        <p class="text-slate-700">${l.text}</p>
+                        ${l.next ? `<p class="text-xs text-slate-400 mt-1">→ ${l.next}</p>` : ''}
+                    </div>
+                </div>
+            `).join('');
+
+            // 完了プロジェクト
+            document.getElementById('completed-projects').innerHTML = siteData.projects.filter(p => p.status === 'completed').map(p => `
+                <div onclick="showProjectDetail('${p.id}')" class="p-4 rounded-xl border border-slate-100 bg-white hover:bg-emerald-50 transition-colors cursor-pointer flex justify-between items-center group">
+                    <span class="font-medium group-hover:text-emerald-700">${p.title}</span>
+                    <i data-lucide="check" class="text-emerald-400"></i>
+                </div>
+            `).join('');
+
+            // 日記
+            document.getElementById('diary-list').innerHTML = siteData.diary.map(d => `
+                <div onclick="showDiaryDetail('${d.id}')" class="p-4 rounded-xl border border-slate-100 bg-white hover:bg-indigo-50 transition-colors cursor-pointer flex justify-between items-center group">
+                    <div>
+                        <p class="text-xs font-bold text-indigo-400 mb-1">${d.date}</p>
+                        <p class="text-sm text-slate-600 group-hover:text-indigo-800">${d.content}</p>
+                    </div>
+                    <i data-lucide="chevron-right" class="text-slate-200 group-hover:text-indigo-400"></i>
+                </div>
+            `).join('');
+
+            // 連絡先
+            document.getElementById('contacts').innerHTML = `
+                <a href="mailto:${siteData.profile?.contact?.mail}" class="p-3 bg-slate-200 rounded-full hover:bg-slate-300 transition-colors"><i data-lucide="mail"></i></a>
+                <a href="https://twitter.com/${siteData.profile?.contact?.twitter?.replace('@','')}" class="p-3 bg-black text-white rounded-full hover:opacity-80 transition-opacity"><i data-lucide="twitter"></i></a>
+            `;
+
+            lucide.createIcons();
+        }
+
+        function showProjectDetail(id) {
+            const p = siteData.projects.find(x => x.id === id);
+            document.getElementById('detail-content').innerHTML = `
+                <header class="mb-8">
+                    <span class="text-xs font-bold px-2 py-1 rounded bg-blue-100 text-blue-600 mb-2 inline-block">${p.status === 'active' ? '進行中' : '完了'}</span>
+                    <h1 class="text-3xl font-bold text-slate-900">${p.title}</h1>
+                    <p class="text-slate-400 mt-2">${p.period}</p>
+                </header>
+                <div class="space-y-8">
+                    <section><h3 class="font-bold text-slate-400 text-xs uppercase mb-2">概要</h3><p class="text-slate-700">${p.summary}</p></section>
+                    <section><h3 class="font-bold text-slate-400 text-xs uppercase mb-2">詳細</h3><div class="text-slate-700 whitespace-pre-wrap">${p.details}</div></section>
+                    ${p.impressions ? `<section class="bg-slate-50 p-4 rounded-xl italic text-slate-500">「${p.impressions}」</section>` : ''}
+                </div>
+            `;
+            showPage('detail');
+            lucide.createIcons();
+        }
+
+        function showDiaryDetail(id) {
+            const d = siteData.diary.find(x => x.id === id);
+            document.getElementById('detail-content').innerHTML = `
+                <p class="text-indigo-500 font-bold mb-2">${d.date}</p>
+                <h1 class="text-2xl font-bold text-slate-900 mb-8">${d.content}</h1>
+                <div class="text-slate-700 leading-loose whitespace-pre-wrap">${d.detailContent}</div>
+            `;
+            showPage('detail');
+            lucide.createIcons();
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
