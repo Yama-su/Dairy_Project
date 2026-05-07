@@ -1,21 +1,31 @@
 {
   "profile": {
     "contact": {
-      "twitter": "@your_handle",
-      "mail": "example@email.com"
+      "twitter": "@K54766006",
+      "mail": "yet"
     },
-    "nowWord": "現在は深層学習モデルの最適化について..."
+    "nowWord": "「常にフレッシュであること」をモットーに活動。専門は化学反応動力学。関心は認知。"
   },
   "projects": [
     {
       "id": "p1",
       "status": "active",
-      "title": "プロジェクトA",
-      "period": "2024.04 -",
+      "title": "活動の可視化",
+      "period": "2026.0507 -",
+      "summary": "概要...活動内容をWebサイトで可視化",
+      "details": "詳細...Spredsheet → Apps Script → GitHub",
+      "duration": "はじめたて",
+      "impressions": "順調"
+    },
+    {
+      "id": "p2",
+      "status": "completed",
+      "title": "過去案件",
+      "period": 2023.1,
       "summary": "概要...",
       "details": "詳細...",
-      "duration": "",
-      "impressions": ""
+      "duration": "6ヶ月",
+      "impressions": "感想..."
     },
     {
       "id": "p3",
@@ -31,18 +41,18 @@
   "logs": [
     {
       "id": "l1",
-      "date": "2024.05.07",
-      "text": "○○を完了。",
-      "next": "次は○○。",
+      "date": "2026.05.07",
+      "text": "Webサイトの立ち上げ完了",
+      "next": "試運転",
       "projectId": "p1"
     }
   ],
   "diary": [
     {
       "id": "d1",
-      "date": "2024.05.07",
-      "content": "今日は晴れ。",
-      "detailContent": "詳細な日記の内容..."
+      "date": "2026.05.07",
+      "content": "Webサイト立ち上げ完了。溶媒の研究進捗あり。",
+      "detailContent": "OK"
     }
   ]
 }
