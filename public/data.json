@@ -1,0 +1,48 @@
+{
+  "profile": {
+    "contact": {
+      "twitter": "@your_handle",
+      "mail": "example@email.com"
+    },
+    "nowWord": "現在は深層学習モデルの最適化について..."
+  },
+  "projects": [
+    {
+      "id": "p1",
+      "status": "active",
+      "title": "プロジェクトA",
+      "period": "2024.04 -",
+      "summary": "概要...",
+      "details": "詳細...",
+      "duration": "",
+      "impressions": ""
+    },
+    {
+      "id": "p3",
+      "status": "completed",
+      "title": "過去案件",
+      "period": 2023.1,
+      "summary": "概要...",
+      "details": "詳細...",
+      "duration": "6ヶ月",
+      "impressions": "感想..."
+    }
+  ],
+  "logs": [
+    {
+      "id": "l1",
+      "date": "2024.05.07",
+      "text": "○○を完了。",
+      "next": "次は○○。",
+      "projectId": "p1"
+    }
+  ],
+  "diary": [
+    {
+      "id": "d1",
+      "date": "2024.05.07",
+      "content": "今日は晴れ。",
+      "detailContent": "詳細な日記の内容..."
+    }
+  ]
+}
