@@ -104,7 +104,6 @@
         // データの取得
         async function fetchData() {
             try {
-                // あなたのdata.jsonのパス
                 const response = await fetch('./public/data.json');
                 if (!response.ok) throw new Error('Load failed');
                 siteData = await response.json();
@@ -181,7 +180,7 @@
             lucide.createIcons();
         }
 
-        // --- ▼ 修正版 関数ここから（.ipynb含むファイル自動プレビュー） ---
+        // ▼ 修正版 showProjectDetail（pyファイルはGitHub上で閲覧）
         async function showProjectDetail(id) {
             const p = siteData.projects.find(x => x.id === id);
             let detailHtml = `
@@ -197,7 +196,7 @@
                 </div>
             `;
 
-            // --- アップロードファイル表示
+            // アップロードファイル表示
             const listUrl = `/Dairy_Project/data/${id}/list.json`;
             let filesHtml = "";
             try {
@@ -218,6 +217,10 @@
                             } else if (ext === "ipynb") {
                                 const nbUrl = `https://nbviewer.org/github/Yama-su/Dairy_Project/blob/main/data/${id}/${encodeURIComponent(f.name)}`;
                                 filesHtml += `<li><a href="${nbUrl}" target="_blank" class="text-green-700 underline flex items-center gap-1"><i data-lucide="book-open"></i> ${f.name} をnbviewerで開く</a></li>`;
+                            } else if (ext === "py") {
+                                // PythonファイルはGitHub本家ビューアで開く
+                                const ghUrl = `https://github.com/Yama-su/Dairy_Project/blob/main/data/${id}/${encodeURIComponent(f.name)}`;
+                                filesHtml += `<li><a href="${ghUrl}" target="_blank" class="text-orange-700 underline flex items-center gap-1"><i data-lucide="file-code"></i> ${f.name} をGitHubで開く</a></li>`;
                             } else {
                                 filesHtml += `<li><a href="${filePath}" target="_blank" class="text-blue-700 underline flex items-center gap-1"><i data-lucide="file"></i> ${f.name}</a></li>`;
                             }
@@ -229,13 +232,11 @@
                 filesHtml += '<p class="text-red-500">ファイルリストの読み込みに失敗しました。</p>';
             }
             detailHtml += filesHtml;
-            // --- ファイルリスト表示ここまで
 
             document.getElementById('detail-content').innerHTML = detailHtml;
             showPage('detail');
             lucide.createIcons();
         }
-        // --- ▲ 修正版 ここまで ---
 
         function showDiaryDetail(id) {
             const d = siteData.diary.find(x => x.id === id);
