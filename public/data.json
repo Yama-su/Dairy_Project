@@ -15,7 +15,8 @@
       "summary": "概要...活動内容をWebサイトで可視化",
       "details": "詳細...Spredsheet → Apps Script → GitHub",
       "duration": "はじめたて",
-      "impressions": "順調"
+      "impressions": "順調",
+      "files": ""
     },
     {
       "id": "p2",
@@ -25,7 +26,8 @@
       "summary": "概要...活動内容をWebサイトで可視化",
       "details": "詳細...Spredsheet → Apps Script → GitHub",
       "duration": "1時間",
-      "impressions": "OK"
+      "impressions": "OK",
+      "files": ""
     },
     {
       "id": "p3",
@@ -35,7 +37,8 @@
       "summary": "概要...カイラル誘起スピン選択（CISS）効果の調査",
       "details": "詳細...",
       "duration": "１カ月",
-      "impressions": "感想..."
+      "impressions": "感想...",
+      "files": ""
     },
     {
       "id": "p4",
@@ -45,7 +48,8 @@
       "summary": "概要...散乱理論の化学反応への応用",
       "details": "基礎、複素ポテンシャル、分岐",
       "duration": "１カ月",
-      "impressions": "感想..."
+      "impressions": "感想...",
+      "files": ""
     },
     {
       "id": "p5",
@@ -55,7 +59,8 @@
       "summary": "概要...生体分子MD英語発表",
       "details": "スライド7割完成、英語の準備微妙",
       "duration": "",
-      "impressions": ""
+      "impressions": "",
+      "files": ""
     },
     {
       "id": "p6",
@@ -65,7 +70,8 @@
       "summary": "概要…ポスター",
       "details": "5割。あとは定理と証明を追記。",
       "duration": "",
-      "impressions": ""
+      "impressions": "",
+      "files": ""
     },
     {
       "id": "p7",
@@ -75,7 +81,8 @@
       "summary": "未公開",
       "details": "",
       "duration": "",
-      "impressions": ""
+      "impressions": "",
+      "files": ""
     },
     {
       "id": "p8",
@@ -85,7 +92,8 @@
       "summary": "未公開",
       "details": "",
       "duration": "",
-      "impressions": ""
+      "impressions": "",
+      "files": ""
     },
     {
       "id": "p9",
@@ -95,7 +103,8 @@
       "summary": "未公開",
       "details": "",
       "duration": "",
-      "impressions": ""
+      "impressions": "",
+      "files": ""
     },
     {
       "id": "p10",
@@ -105,7 +114,8 @@
       "summary": "概要…モース理論",
       "details": "0508に自分が発表",
       "duration": "",
-      "impressions": ""
+      "impressions": "",
+      "files": ""
     },
     {
       "id": "p11",
@@ -115,7 +125,8 @@
       "summary": "概要…web to md",
       "details": "pdf to markdown できた",
       "duration": "",
-      "impressions": "OK"
+      "impressions": "OK",
+      "files": "upload"
     }
   ],
   "logs": [
