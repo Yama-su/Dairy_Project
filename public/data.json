@@ -106,6 +106,16 @@
       "details": "0508に自分が発表",
       "duration": "",
       "impressions": ""
+    },
+    {
+      "id": "p11",
+      "status": "active",
+      "title": "pdf to markdon to keep late",
+      "period": "2026.0508 - ",
+      "summary": "",
+      "details": "pdf to markdown できた",
+      "duration": "",
+      "impressions": ""
     }
   ],
   "logs": [
