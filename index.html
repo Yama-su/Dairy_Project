@@ -43,7 +43,6 @@
                 </h2>
                 <p id="now-word" class="text-2xl md:text-3xl font-medium">...</p>
             </section>
-
             <!-- 進行中プロジェクト -->
             <section>
                 <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-slate-900">
@@ -182,9 +181,10 @@
             lucide.createIcons();
         }
 
-        function showProjectDetail(id) {
+        // --- ▼ 修正版 関数ここから（.ipynb含むファイル自動プレビュー） ---
+        async function showProjectDetail(id) {
             const p = siteData.projects.find(x => x.id === id);
-            document.getElementById('detail-content').innerHTML = `
+            let detailHtml = `
                 <header class="mb-8">
                     <span class="text-xs font-bold px-2 py-1 rounded bg-blue-100 text-blue-600 mb-2 inline-block">${p.status === 'active' ? '進行中' : '完了'}</span>
                     <h1 class="text-3xl font-bold text-slate-900">${p.title}</h1>
@@ -196,9 +196,46 @@
                     ${p.impressions ? `<section class="bg-slate-50 p-4 rounded-xl italic text-slate-500">「${p.impressions}」</section>` : ''}
                 </div>
             `;
+
+            // --- アップロードファイル表示
+            const listUrl = `/Dairy_Project/data/${id}/list.json`;
+            let filesHtml = "";
+            try {
+                const res = await fetch(listUrl);
+                if (res.ok) {
+                    const list = await res.json();
+                    if (list.files && list.files.length > 0) {
+                        filesHtml += '<section class="mt-8"><h3 class="font-bold text-slate-400 text-xs uppercase mb-2">アップロードファイル</h3><ul class="space-y-2">';
+                        list.files.forEach(f => {
+                            const ext = f.name.split('.').pop().toLowerCase();
+                            const filePath = `/Dairy_Project/data/${id}/${encodeURIComponent(f.name)}`;
+                            if (["png","jpg","jpeg","gif","bmp","webp"].includes(ext)) {
+                                filesHtml += `<li><img src="${filePath}" alt="${f.name}" class="max-w-xs my-2 rounded border"></li>`;
+                            } else if (ext === "pdf") {
+                                filesHtml += `<li><a href="${filePath}" target="_blank" class="text-blue-700 underline flex items-center gap-1"><i data-lucide="file-text"></i> ${f.name} (PDF)</a></li>`;
+                            } else if (ext === "md" || ext === "txt") {
+                                filesHtml += `<li><a href="${filePath}" target="_blank" class="text-blue-700 underline flex items-center gap-1"><i data-lucide="file-text"></i> ${f.name}</a></li>`;
+                            } else if (ext === "ipynb") {
+                                const nbUrl = `https://nbviewer.org/github/Yama-su/Dairy_Project/blob/main/data/${id}/${encodeURIComponent(f.name)}`;
+                                filesHtml += `<li><a href="${nbUrl}" target="_blank" class="text-green-700 underline flex items-center gap-1"><i data-lucide="book-open"></i> ${f.name} をnbviewerで開く</a></li>`;
+                            } else {
+                                filesHtml += `<li><a href="${filePath}" target="_blank" class="text-blue-700 underline flex items-center gap-1"><i data-lucide="file"></i> ${f.name}</a></li>`;
+                            }
+                        });
+                        filesHtml += '</ul></section>';
+                    }
+                }
+            } catch(e) {
+                filesHtml += '<p class="text-red-500">ファイルリストの読み込みに失敗しました。</p>';
+            }
+            detailHtml += filesHtml;
+            // --- ファイルリスト表示ここまで
+
+            document.getElementById('detail-content').innerHTML = detailHtml;
             showPage('detail');
             lucide.createIcons();
         }
+        // --- ▲ 修正版 ここまで ---
 
         function showDiaryDetail(id) {
             const d = siteData.diary.find(x => x.id === id);
